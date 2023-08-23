@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sushiapp/components/button.dart';
 import 'package:sushiapp/components/foodtile.dart';
 import 'package:sushiapp/models/food.dart';
+import 'package:sushiapp/pages/food_details_page.dart';
 import 'package:sushiapp/themes/colors.dart';
 
 class MenuPage extends StatefulWidget {
@@ -16,12 +17,25 @@ class _MenuPageState extends State<MenuPage> {
   List foods = [
     Food(
         name: "Salmon sushi",
-        price: "30",
+        price: "30.00",
         imagepath: "assets/salmon-sushi.png",
         rating: "4.8"),
     Food(
-        name: "Tuna", price: "24", imagepath: "assets/tuna.png", rating: "4.4"),
+        name: "Tuna",
+        price: "24.00",
+        imagepath: "assets/tuna.png",
+        rating: "4.4"),
   ];
+
+  void navigateFoodDetails(int index) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: ((context) => FoodDetailsPage(
+                  food: foods[index],
+                ))));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +59,9 @@ class _MenuPageState extends State<MenuPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                SizedBox(
+                  height: 5,
+                ),
                 Container(
                   decoration: BoxDecoration(
                       color: primaryColor,
@@ -120,12 +137,13 @@ class _MenuPageState extends State<MenuPage> {
                         scrollDirection: Axis.horizontal,
                         itemCount: foods.length,
                         itemBuilder: (context, index) => FoodTile(
+                              onTap: () => navigateFoodDetails(index),
                               food: foods[index],
                             )),
                   ),
                 ),
                 SizedBox(
-                  height: 25,
+                  height: 0,
                 ),
                 Container(
                   margin: EdgeInsets.only(bottom: 25, left: 25, right: 25),
